@@ -1,8 +1,8 @@
 aid: squillo
 name: Squillo
 description: >-
-  Software as a Utility is here: Integrate and Automate entire IT systems and
-  human processes in minutes, not months. 
+  Software as a Utility is here: Integrate and Automate entire IT systems and human
+  processes in minutes, not months.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -18,8 +18,8 @@ apis:
   - aid: squillo:squillo
     name: Squillo
     description: >-
-      Software as a Utility is here: Integrate and Automate entire IT systems
-      and human processes in minutes, not months. 
+      Software as a Utility is here: Integrate and Automate entire IT systems and
+      human processes in minutes, not months.
     humanURL: ' https://squillo.io/'
     tags:
       - API
