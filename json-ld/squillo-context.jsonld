@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "squillo": "https://squillo.io/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Workflow": "schema:Action",
+    "WorkflowStep": "schema:Action",
+    "Execution": "schema:Action",
+    "Connector": "schema:SoftwareApplication",
+    "Connection": "schema:ListItem",
+
+    "id": "schema:identifier",
+    "name": "schema:name",
+    "description": "schema:description",
+    "status": "schema:status",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "startedAt": {
+      "@id": "schema:startDate",
+      "@type": "xsd:dateTime"
+    },
+    "completedAt": {
+      "@id": "schema:endDate",
+      "@type": "xsd:dateTime"
+    },
+    "tags": "schema:keywords",
+    "steps": {
+      "@id": "squillo:hasStep",
+      "@container": "@list"
+    },
+    "trigger": "squillo:hasTrigger",
+    "triggeredBy": "squillo:triggeredBy",
+    "connectorId": {
+      "@id": "squillo:usesConnector",
+      "@type": "@id"
+    },
+    "action": "squillo:performs",
+    "inputMapping": "squillo:inputMapping",
+    "outputMapping": "squillo:outputMapping",
+    "workflowId": {
+      "@id": "squillo:fromWorkflow",
+      "@type": "@id"
+    },
+    "category": "schema:category",
+    "logoUrl": "schema:logo"
+  }
+}

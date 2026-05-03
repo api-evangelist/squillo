@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://squillo.io/schemas/workflow",
+  "title": "Squillo Workflow",
+  "description": "A workflow automation definition in the Squillo SaaU platform",
+  "type": "object",
+  "required": ["id", "name", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique workflow identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable workflow name",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional workflow description"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive", "draft"],
+      "description": "Current workflow status"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trigger": {
+      "$ref": "#/$defs/Trigger"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WorkflowStep"
+      }
+    }
+  },
+  "$defs": {
+    "Trigger": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["webhook", "schedule", "manual", "event"],
+          "description": "Trigger type"
+        },
+        "config": {
+          "type": "object",
+          "description": "Trigger-specific configuration (cron expression, webhook URL, etc.)"
+        }
+      },
+      "required": ["type"]
+    },
+    "WorkflowStep": {
+      "type": "object",
+      "required": ["id", "name", "type"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["action", "condition", "loop", "delay", "transform"]
+        },
+        "connectorId": {
+          "type": "string",
+          "description": "ID of the connector used by this step"
+        },
+        "action": {
+          "type": "string",
+          "description": "Connector action to perform"
+        },
+        "inputMapping": {
+          "type": "object",
+          "description": "Input field mappings from previous step outputs"
+        },
+        "outputMapping": {
+          "type": "object",
+          "description": "Output field mappings for downstream steps"
+        }
+      }
+    },
+    "Execution": {
+      "type": "object",
+      "required": ["id", "workflowId", "status"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "workflowId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["running", "success", "failed", "cancelled"]
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "triggeredBy": {
+          "type": "string",
+          "enum": ["manual", "schedule", "webhook", "event"]
+        }
+      }
+    }
+  }
+}

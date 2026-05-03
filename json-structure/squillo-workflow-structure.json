@@ -1,0 +1,55 @@
+{
+  "title": "Squillo Workflow Structure",
+  "description": "Structure documentation for Squillo workflow automation objects",
+  "version": "1.0",
+  "structures": [
+    {
+      "name": "Workflow",
+      "description": "A workflow automation definition",
+      "fields": [
+        { "name": "id", "type": "string", "required": true, "description": "Unique identifier" },
+        { "name": "name", "type": "string", "required": true, "description": "Workflow name" },
+        { "name": "description", "type": "string", "required": false, "description": "Workflow description" },
+        { "name": "status", "type": "enum(active|inactive|draft)", "required": true, "description": "Workflow status" },
+        { "name": "trigger", "type": "Trigger", "required": false, "description": "Trigger configuration" },
+        { "name": "steps", "type": "array<WorkflowStep>", "required": false, "description": "Workflow steps" },
+        { "name": "tags", "type": "array<string>", "required": false, "description": "Tags for organization" },
+        { "name": "createdAt", "type": "datetime", "required": true, "description": "Creation timestamp" },
+        { "name": "updatedAt", "type": "datetime", "required": true, "description": "Last update timestamp" }
+      ]
+    },
+    {
+      "name": "Trigger",
+      "description": "Workflow trigger configuration",
+      "fields": [
+        { "name": "type", "type": "enum(webhook|schedule|manual|event)", "required": true, "description": "Trigger type" },
+        { "name": "config", "type": "object", "required": false, "description": "Type-specific configuration" }
+      ]
+    },
+    {
+      "name": "WorkflowStep",
+      "description": "A single step in a workflow",
+      "fields": [
+        { "name": "id", "type": "string", "required": true, "description": "Step identifier" },
+        { "name": "name", "type": "string", "required": true, "description": "Step display name" },
+        { "name": "type", "type": "enum(action|condition|loop|delay|transform)", "required": true, "description": "Step type" },
+        { "name": "connectorId", "type": "string", "required": false, "description": "Connected service ID" },
+        { "name": "action", "type": "string", "required": false, "description": "Connector action name" },
+        { "name": "inputMapping", "type": "object", "required": false, "description": "Input field mappings" },
+        { "name": "outputMapping", "type": "object", "required": false, "description": "Output field mappings" }
+      ]
+    },
+    {
+      "name": "Execution",
+      "description": "A workflow execution instance",
+      "fields": [
+        { "name": "id", "type": "string", "required": true, "description": "Execution identifier" },
+        { "name": "workflowId", "type": "string", "required": true, "description": "Source workflow ID" },
+        { "name": "status", "type": "enum(running|success|failed|cancelled)", "required": true, "description": "Execution status" },
+        { "name": "startedAt", "type": "datetime", "required": true, "description": "Start timestamp" },
+        { "name": "completedAt", "type": "datetime|null", "required": false, "description": "Completion timestamp" },
+        { "name": "triggeredBy", "type": "enum(manual|schedule|webhook|event)", "required": false, "description": "Trigger source" }
+      ]
+    }
+  ]
+}

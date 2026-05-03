@@ -1,0 +1,55 @@
+{
+  "example": "List Workflows",
+  "operation": "listWorkflows",
+  "request": {
+    "method": "GET",
+    "url": "https://api.squillo.io/v1/workflows?status=active&page=1&limit=20",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "contentType": "application/json",
+    "body": {
+      "workflows": [
+        {
+          "id": "wf-abc123",
+          "name": "Employee Onboarding Automation",
+          "description": "Automates new employee setup across HR, IT, and facilities systems",
+          "status": "active",
+          "createdAt": "2026-03-01T09:00:00Z",
+          "updatedAt": "2026-04-15T14:30:00Z",
+          "tags": ["HR", "Onboarding", "IT"],
+          "trigger": {
+            "type": "event",
+            "config": {
+              "eventType": "employee.created",
+              "source": "workday"
+            }
+          }
+        },
+        {
+          "id": "wf-def456",
+          "name": "Monthly Invoice Processing",
+          "description": "Processes invoices from email and routes to accounting",
+          "status": "active",
+          "createdAt": "2026-01-10T10:00:00Z",
+          "updatedAt": "2026-04-28T08:00:00Z",
+          "tags": ["Finance", "Invoicing"],
+          "trigger": {
+            "type": "schedule",
+            "config": {
+              "cron": "0 9 1 * *",
+              "timezone": "America/New_York"
+            }
+          }
+        }
+      ],
+      "total": 12,
+      "page": 1,
+      "limit": 20
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "example": "Execute Workflow",
+  "operation": "executeWorkflow",
+  "request": {
+    "method": "POST",
+    "url": "https://api.squillo.io/v1/workflows/wf-abc123/execute",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputData": {
+        "employeeId": "EMP-78901",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "department": "Engineering",
+        "startDate": "2026-05-15"
+      }
+    }
+  },
+  "response": {
+    "status": 202,
+    "contentType": "application/json",
+    "body": {
+      "id": "exec-xyz789",
+      "workflowId": "wf-abc123",
+      "status": "running",
+      "startedAt": "2026-05-02T10:15:30Z",
+      "completedAt": null,
+      "triggeredBy": "manual"
+    }
+  }
+}
