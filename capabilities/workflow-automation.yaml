@@ -1,288 +1,485 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Squillo Workflow Automation"
-  description: >-
-    Unified workflow capability for managing and monitoring Squillo integration
-    automations. Enables IT operations and integration teams to build, deploy,
-    monitor, and troubleshoot automated workflows connecting enterprise systems
-    without traditional development overhead.
+  label: Squillo Workflow Automation
+  description: Unified workflow capability for managing and monitoring Squillo integration automations. Enables IT operations
+    and integration teams to build, deploy, monitor, and troubleshoot automated workflows connecting enterprise systems without
+    traditional development overhead.
   tags:
-    - Squillo
-    - Workflow Automation
-    - Integration Platform
-    - No-Code
-    - IT Process Automation
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Squillo
+  - Workflow Automation
+  - Integration Platform
+  - No-Code
+  - IT Process Automation
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SQUILLO_API_TOKEN: SQUILLO_API_TOKEN
-
+- namespace: env
+  keys:
+    SQUILLO_API_TOKEN: SQUILLO_API_TOKEN
 capability:
   consumes:
-    - import: squillo-platform
-      location: ./shared/platform.yaml
-
+  - type: http
+    namespace: squillo-platform
+    baseUri: https://api.squillo.io/v1
+    description: Squillo Platform API
+    authentication:
+      type: bearer
+      token: '{{SQUILLO_API_TOKEN}}'
+    resources:
+    - name: workflows
+      path: /workflows
+      description: Workflow management
+      operations:
+      - name: list-workflows
+        method: GET
+        description: List all workflow definitions
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Filter by workflow status
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-workflow
+        method: POST
+        description: Create a new workflow definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            description: '{{tools.description}}'
+    - name: workflow-by-id
+      path: /workflows/{workflowId}
+      description: Individual workflow management
+      operations:
+      - name: get-workflow
+        method: GET
+        description: Get workflow details
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+          description: Workflow ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-workflow
+        method: PUT
+        description: Update a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-workflow
+        method: DELETE
+        description: Delete a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-activate
+      path: /workflows/{workflowId}/activate
+      description: Workflow activation
+      operations:
+      - name: activate-workflow
+        method: POST
+        description: Activate a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-execute
+      path: /workflows/{workflowId}/execute
+      description: Manual workflow execution
+      operations:
+      - name: execute-workflow
+        method: POST
+        description: Manually trigger a workflow execution
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: executions
+      path: /executions
+      description: Execution history
+      operations:
+      - name: list-executions
+        method: GET
+        description: List workflow executions
+        inputParameters:
+        - name: workflowId
+          in: query
+          type: string
+          required: false
+        - name: status
+          in: query
+          type: string
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: execution-by-id
+      path: /executions/{executionId}
+      description: Individual execution details
+      operations:
+      - name: get-execution
+        method: GET
+        description: Get execution details
+        inputParameters:
+        - name: executionId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: connectors
+      path: /connectors
+      description: Integration connectors
+      operations:
+      - name: list-connectors
+        method: GET
+        description: List available connectors
+        inputParameters:
+        - name: category
+          in: query
+          type: string
+          required: false
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: variables
+      path: /variables
+      description: Workflow variables
+      operations:
+      - name: list-variables
+        method: GET
+        description: List workflow variables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-variable
+        method: POST
+        description: Create a workflow variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: squillo-workflow-automation-api
-      description: "Unified REST API for Squillo workflow automation management."
-      resources:
-        - path: /v1/workflows
-          name: workflows
-          description: "Workflow definitions"
-          operations:
-            - method: GET
-              name: list-workflows
-              description: "List all workflow definitions"
-              call: "squillo-platform.list-workflows"
-              with:
-                status: "rest.status"
-                page: "rest.page"
-                limit: "rest.limit"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-workflow
-              description: "Create a new workflow definition"
-              call: "squillo-platform.create-workflow"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/workflows/{workflowId}
-          name: workflow-detail
-          description: "Individual workflow management"
-          operations:
-            - method: GET
-              name: get-workflow
-              description: "Get workflow details"
-              call: "squillo-platform.get-workflow"
-              with:
-                workflowId: "rest.workflowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: PUT
-              name: update-workflow
-              description: "Update a workflow"
-              call: "squillo-platform.update-workflow"
-              with:
-                workflowId: "rest.workflowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-workflow
-              description: "Delete a workflow"
-              call: "squillo-platform.delete-workflow"
-              with:
-                workflowId: "rest.workflowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/workflows/{workflowId}/activate
-          name: workflow-activate
-          description: "Activate or deactivate a workflow"
-          operations:
-            - method: POST
-              name: activate-workflow
-              description: "Activate a workflow to enable its triggers"
-              call: "squillo-platform.activate-workflow"
-              with:
-                workflowId: "rest.workflowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/workflows/{workflowId}/execute
-          name: workflow-execute
-          description: "Manually trigger a workflow"
-          operations:
-            - method: POST
-              name: execute-workflow
-              description: "Manually execute a workflow with optional input data"
-              call: "squillo-platform.execute-workflow"
-              with:
-                workflowId: "rest.workflowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/executions
-          name: executions
-          description: "Workflow execution history"
-          operations:
-            - method: GET
-              name: list-executions
-              description: "List workflow execution history"
-              call: "squillo-platform.list-executions"
-              with:
-                workflowId: "rest.workflowId"
-                status: "rest.status"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/executions/{executionId}
-          name: execution-detail
-          description: "Execution details"
-          operations:
-            - method: GET
-              name: get-execution
-              description: "Get execution details with step results"
-              call: "squillo-platform.get-execution"
-              with:
-                executionId: "rest.executionId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/connectors
-          name: connectors
-          description: "Available integration connectors"
-          operations:
-            - method: GET
-              name: list-connectors
-              description: "List available integration connectors"
-              call: "squillo-platform.list-connectors"
-              with:
-                category: "rest.category"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/variables
-          name: variables
-          description: "Workflow variables and secrets"
-          operations:
-            - method: GET
-              name: list-variables
-              description: "List workflow variables"
-              call: "squillo-platform.list-variables"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-variable
-              description: "Create a workflow variable or secret"
-              call: "squillo-platform.create-variable"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: squillo-workflow-automation-mcp
-      transport: http
-      description: "MCP server for AI-assisted Squillo workflow automation management."
-      tools:
-        - name: list-workflows
-          description: "List all Squillo workflow definitions with optional status filter"
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squillo-platform.list-workflows"
-          with:
-            status: "tools.status"
-            page: "tools.page"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-workflow
-          description: "Get details for a specific Squillo workflow including steps and triggers"
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squillo-platform.get-workflow"
-          with:
-            workflowId: "tools.workflowId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-workflow
-          description: "Create a new Squillo workflow automation definition"
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "squillo-platform.create-workflow"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: activate-workflow
-          description: "Activate a Squillo workflow to enable its triggers"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "squillo-platform.activate-workflow"
-          with:
-            workflowId: "tools.workflowId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: execute-workflow
-          description: "Manually trigger a Squillo workflow execution"
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "squillo-platform.execute-workflow"
-          with:
-            workflowId: "tools.workflowId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-executions
-          description: "List Squillo workflow execution history with filtering by status and date"
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squillo-platform.list-executions"
-          with:
-            workflowId: "tools.workflowId"
-            status: "tools.status"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-execution
-          description: "Get detailed Squillo execution results including step outputs and errors"
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squillo-platform.get-execution"
-          with:
-            executionId: "tools.executionId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-connectors
-          description: "List available Squillo integration connectors by category"
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squillo-platform.list-connectors"
-          with:
-            category: "tools.category"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-variables
-          description: "List Squillo workflow variables and secrets"
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squillo-platform.list-variables"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-workflow
-          description: "Delete a Squillo workflow definition and its execution history"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "squillo-platform.delete-workflow"
-          with:
-            workflowId: "tools.workflowId"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: squillo-workflow-automation-api
+    description: Unified REST API for Squillo workflow automation management.
+    resources:
+    - path: /v1/workflows
+      name: workflows
+      description: Workflow definitions
+      operations:
+      - method: GET
+        name: list-workflows
+        description: List all workflow definitions
+        call: squillo-platform.list-workflows
+        with:
+          status: rest.status
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-workflow
+        description: Create a new workflow definition
+        call: squillo-platform.create-workflow
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{workflowId}
+      name: workflow-detail
+      description: Individual workflow management
+      operations:
+      - method: GET
+        name: get-workflow
+        description: Get workflow details
+        call: squillo-platform.get-workflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: update-workflow
+        description: Update a workflow
+        call: squillo-platform.update-workflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-workflow
+        description: Delete a workflow
+        call: squillo-platform.delete-workflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{workflowId}/activate
+      name: workflow-activate
+      description: Activate or deactivate a workflow
+      operations:
+      - method: POST
+        name: activate-workflow
+        description: Activate a workflow to enable its triggers
+        call: squillo-platform.activate-workflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{workflowId}/execute
+      name: workflow-execute
+      description: Manually trigger a workflow
+      operations:
+      - method: POST
+        name: execute-workflow
+        description: Manually execute a workflow with optional input data
+        call: squillo-platform.execute-workflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/executions
+      name: executions
+      description: Workflow execution history
+      operations:
+      - method: GET
+        name: list-executions
+        description: List workflow execution history
+        call: squillo-platform.list-executions
+        with:
+          workflowId: rest.workflowId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/executions/{executionId}
+      name: execution-detail
+      description: Execution details
+      operations:
+      - method: GET
+        name: get-execution
+        description: Get execution details with step results
+        call: squillo-platform.get-execution
+        with:
+          executionId: rest.executionId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connectors
+      name: connectors
+      description: Available integration connectors
+      operations:
+      - method: GET
+        name: list-connectors
+        description: List available integration connectors
+        call: squillo-platform.list-connectors
+        with:
+          category: rest.category
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/variables
+      name: variables
+      description: Workflow variables and secrets
+      operations:
+      - method: GET
+        name: list-variables
+        description: List workflow variables
+        call: squillo-platform.list-variables
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-variable
+        description: Create a workflow variable or secret
+        call: squillo-platform.create-variable
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: squillo-workflow-automation-mcp
+    transport: http
+    description: MCP server for AI-assisted Squillo workflow automation management.
+    tools:
+    - name: list-workflows
+      description: List all Squillo workflow definitions with optional status filter
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squillo-platform.list-workflows
+      with:
+        status: tools.status
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-workflow
+      description: Get details for a specific Squillo workflow including steps and triggers
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squillo-platform.get-workflow
+      with:
+        workflowId: tools.workflowId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-workflow
+      description: Create a new Squillo workflow automation definition
+      hints:
+        readOnly: false
+        idempotent: false
+      call: squillo-platform.create-workflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: activate-workflow
+      description: Activate a Squillo workflow to enable its triggers
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: squillo-platform.activate-workflow
+      with:
+        workflowId: tools.workflowId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: execute-workflow
+      description: Manually trigger a Squillo workflow execution
+      hints:
+        readOnly: false
+        idempotent: false
+      call: squillo-platform.execute-workflow
+      with:
+        workflowId: tools.workflowId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-executions
+      description: List Squillo workflow execution history with filtering by status and date
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squillo-platform.list-executions
+      with:
+        workflowId: tools.workflowId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-execution
+      description: Get detailed Squillo execution results including step outputs and errors
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squillo-platform.get-execution
+      with:
+        executionId: tools.executionId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-connectors
+      description: List available Squillo integration connectors by category
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squillo-platform.list-connectors
+      with:
+        category: tools.category
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-variables
+      description: List Squillo workflow variables and secrets
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squillo-platform.list-variables
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-workflow
+      description: Delete a Squillo workflow definition and its execution history
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: squillo-platform.delete-workflow
+      with:
+        workflowId: tools.workflowId
+      outputParameters:
+      - type: object
+        mapping: $.
