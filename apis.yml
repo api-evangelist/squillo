@@ -71,6 +71,14 @@ common:
   - type: Vocabulary
     url: >-
       https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/vocabulary/squillo-vocabulary.yml
+  - type: Integrations
+    url: https://squillo.io/partners
+integrations:
+  - name: Green Squillo
+  - name: White Squillo
+  - name: Small White LinkedIn
+  - name: Small White Github
+  - name: Small White Reddit
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
