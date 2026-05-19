@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Squillo Platform API — Connectors
+  description: 'Squillo Platform API — Connectors. 3 operations. Lead operation: List Connectors. Self-contained Naftiko capability
+    covering one Squillo business surface.'
+  tags:
+  - Squillo
+  - Connectors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SQUILLO_API_KEY: SQUILLO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-connectors
+    baseUri: https://api.squillo.io/v1
+    description: Squillo Platform API — Connectors business capability. Self-contained, no shared references.
+    resources:
+    - name: connectors
+      path: /connectors
+      operations:
+      - name: listconnectors
+        method: GET
+        description: List Connectors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: category
+          in: query
+          type: string
+          description: Filter by connector category (CRM, ERP, Messaging, etc.)
+    - name: connectors-connectorId-connections
+      path: /connectors/{connectorId}/connections
+      operations:
+      - name: listconnections
+        method: GET
+        description: List Connector Connections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connectorId
+          in: path
+          type: string
+          required: true
+      - name: createconnection
+        method: POST
+        description: Create Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connectorId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SQUILLO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-connectors-rest
+    port: 8080
+    description: REST adapter for Squillo Platform API — Connectors. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/connectors
+      name: connectors
+      description: REST surface for connectors.
+      operations:
+      - method: GET
+        name: listconnectors
+        description: List Connectors
+        call: platform-connectors.listconnectors
+        with:
+          category: rest.category
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connectors/{connectorid}/connections
+      name: connectors-connectorid-connections
+      description: REST surface for connectors-connectorId-connections.
+      operations:
+      - method: GET
+        name: listconnections
+        description: List Connector Connections
+        call: platform-connectors.listconnections
+        with:
+          connectorId: rest.connectorId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createconnection
+        description: Create Connection
+        call: platform-connectors.createconnection
+        with:
+          connectorId: rest.connectorId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-connectors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Squillo Platform API — Connectors. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-connectors
+      description: List Connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-connectors.listconnectors
+      with:
+        category: tools.category
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-connector-connections
+      description: List Connector Connections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-connectors.listconnections
+      with:
+        connectorId: tools.connectorId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-connection
+      description: Create Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-connectors.createconnection
+      with:
+        connectorId: tools.connectorId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
