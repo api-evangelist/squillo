@@ -8,72 +8,74 @@ position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Integration Platform
-- Automation
-- Workflow
-- No-Code
-- IT Process Automation
-- Software As A Utility
+  - Integration Platform
+  - Automation
+  - Workflow
+  - No-Code
+  - IT Process Automation
+  - Software As A Utility
 url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/apis.yml
 created: '2025-08-19'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: squillo:squillo-platform
-  name: Squillo Platform API
-  description: The Squillo Platform API provides programmatic access to Squillo's integration and automation capabilities.
-    Enables developers to manage workflows, connectors, integrations, and automation tasks programmatically. The API supports
-    creating and managing integration flows, monitoring execution status, and configuring system connections.
-  humanURL: https://squillo.io/
-  baseURL: https://api.squillo.io/v1
-  tags:
-  - Integration Platform
-  - Workflow Automation
-  - IT Process Automation
-  - No-Code
-  - Connectors
-  properties:
+  - aid: squillo:squillo-platform
+    name: Squillo Platform API
+    description: The Squillo Platform API provides programmatic access to Squillo's integration and automation capabilities.
+      Enables developers to manage workflows, connectors, integrations, and automation tasks programmatically. The API supports
+      creating and managing integration flows, monitoring execution status, and configuring system connections.
+    humanURL: https://squillo.io/
+    baseURL: https://api.squillo.io/v1
+    tags:
+    - Integration Platform
+    - Workflow Automation
+    - IT Process Automation
+    - No-Code
+    - Connectors
+    properties:
+    - type: Documentation
+      url: https://squillo.io/
+    - type: OpenAPI
+      url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml
+    - type: NaftikoCapability
+      url: capabilities/platform-connectors.yaml
+    - type: NaftikoCapability
+      url: capabilities/platform-executions.yaml
+    - type: NaftikoCapability
+      url: capabilities/platform-variables.yaml
+    - type: NaftikoCapability
+      url: capabilities/platform-workflows.yaml
+common:
+  - type: GitHubOrganization
+    url: https://github.com/squillo
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/squillo
+  - type: Website
+    url: https://squillo.io/
   - type: Documentation
     url: https://squillo.io/
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/platform-connectors.yaml
-  - type: NaftikoCapability
-    url: capabilities/platform-executions.yaml
-  - type: NaftikoCapability
-    url: capabilities/platform-variables.yaml
-  - type: NaftikoCapability
-    url: capabilities/platform-workflows.yaml
-common:
-- type: LinkedIn
-  url: https://www.linkedin.com/company/squillo
-- type: Website
-  url: https://squillo.io/
-- type: Documentation
-  url: https://squillo.io/
-- type: OpenAPI
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml
-- type: JSONSchema
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-schema/squillo-workflow-schema.json
-- type: JSONStructure
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-structure/squillo-workflow-structure.json
-- type: JSONLDContext
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-ld/squillo-context.jsonld
-- type: SpectralRules
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/rules/squillo-rules.yml
-- type: NaftikoCapabilities
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/capabilities/workflow-automation.yaml
-- type: Vocabulary
-  url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/vocabulary/squillo-vocabulary.yml
-- type: Integrations
-  url: https://squillo.io/partners
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-schema/squillo-workflow-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-structure/squillo-workflow-structure.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-ld/squillo-context.jsonld
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/rules/squillo-rules.yml
+  - type: NaftikoCapabilities
+    url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/capabilities/workflow-automation.yaml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/vocabulary/squillo-vocabulary.yml
+  - type: Integrations
+    url: https://squillo.io/partners
 integrations:
-- name: Green Squillo
-- name: White Squillo
-- name: Small White LinkedIn
-- name: Small White Github
-- name: Small White Reddit
+  - name: Green Squillo
+  - name: White Squillo
+  - name: Small White LinkedIn
+  - name: Small White Github
+  - name: Small White Reddit
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
