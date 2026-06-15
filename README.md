@@ -1,9 +1,28 @@
-# Squillo
+# Squillo (squillo)
 
 Squillo is a Software as a Utility (SaaU) platform that enables integration and automation of entire IT systems and human processes in minutes, not months. It provides a low-code/no-code approach to connecting enterprise applications, automating workflows, and orchestrating complex IT processes without traditional development overhead.
 
-- **Website:** https://squillo.io/
-- **Documentation:** https://squillo.io/
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Integration Platform
+- Automation
+- Workflow
+- No-Code
+- IT Process Automation
+- Software As A Utility
+
+## Timestamps
+
+- **Created:** 2025-08-19
+- **Modified:** 2026-05-19
 
 ## APIs
 
@@ -11,65 +30,39 @@ Squillo is a Software as a Utility (SaaU) platform that enables integration and 
 
 The Squillo Platform API provides programmatic access to Squillo's integration and automation capabilities. Enables developers to manage workflows, connectors, integrations, and automation tasks programmatically. The API supports creating and managing integration flows, monitoring execution status, and configuring system connections.
 
-- **Base URL:** https://api.squillo.io/v1
-- **Documentation:** https://squillo.io/
-- **OpenAPI:** [squillo-platform-openapi.yml](openapi/squillo-platform-openapi.yml)
+- **Human URL:** [https://squillo.io/](https://squillo.io/)
+- **Base URL:** `https://api.squillo.io/v1`
 
-## Artifacts
+#### Tags
 
-### OpenAPI Specifications
+- Integration Platform
+- Workflow Automation
+- IT Process Automation
+- No-Code
+- Connectors
 
-| Spec | Description |
-|------|-------------|
-| [squillo-platform-openapi.yml](openapi/squillo-platform-openapi.yml) | Squillo Platform API for workflow and automation management |
+#### Properties
 
-### Spectral Rules
+- [Documentation](https://squillo.io/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/squillo-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/squillo-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-| Ruleset | Description |
-|---------|-------------|
-| [squillo-rules.yml](rules/squillo-rules.yml) | Spectral rules for Squillo API conventions |
+## Common Properties
 
-### Capabilities
+- [GitHub Organization](https://github.com/squillo)
+- [LinkedIn](https://www.linkedin.com/company/squillo)
+- [Website](https://squillo.io/)
+- [Documentation](https://squillo.io/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-schema/squillo-workflow-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-structure/squillo-workflow-structure.json)
+- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-ld/squillo-context.jsonld)
+- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/rules/squillo-rules.yml)
+- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/vocabulary/squillo-vocabulary.yml)
+- [Integrations](https://squillo.io/partners)
 
-#### Workflow Capabilities
+## Maintainers
 
-| Capability | Description |
-|-----------|-------------|
-| [workflow-automation.yaml](capabilities/workflow-automation.yaml) | Unified workflow automation management capability |
-
-#### Shared Definitions
-
-| Shared | Description |
-|--------|-------------|
-| [platform.yaml](capabilities/shared/platform.yaml) | Squillo Platform API consumer definition |
-
-### JSON Schema
-
-| Schema | Description |
-|--------|-------------|
-| [squillo-workflow-schema.json](json-schema/squillo-workflow-schema.json) | Workflow automation definition schema |
-
-### JSON Structure
-
-| Structure | Description |
-|-----------|-------------|
-| [squillo-workflow-structure.json](json-structure/squillo-workflow-structure.json) | Workflow structure documentation |
-
-### JSON-LD
-
-| Context | Description |
-|---------|-------------|
-| [squillo-context.jsonld](json-ld/squillo-context.jsonld) | JSON-LD context for Squillo platform vocabulary |
-
-### Examples
-
-| Example | Description |
-|---------|-------------|
-| [squillo-list-workflows-example.json](examples/squillo-list-workflows-example.json) | List active workflows example |
-| [squillo-execute-workflow-example.json](examples/squillo-execute-workflow-example.json) | Execute workflow with input data example |
-
-### Vocabulary
-
-| Vocabulary | Description |
-|-----------|-------------|
-| [squillo-vocabulary.yml](vocabulary/squillo-vocabulary.yml) | Squillo platform domain vocabulary and terminology |
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com

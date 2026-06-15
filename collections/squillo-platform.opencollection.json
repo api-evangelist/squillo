@@ -1,0 +1,381 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squillo Platform API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/workflows",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workflow status"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of all workflow definitions in the account, including their status, creation date, and trigger configuration."
+        },
+        {
+          "info": {
+            "name": "Create Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/workflows",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workflow definition with specified steps, connectors, and trigger configuration."
+        },
+        {
+          "info": {
+            "name": "Get Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/workflows/:workflowId",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique workflow identifier"
+              }
+            ]
+          },
+          "docs": "Returns the full definition for a specific workflow including all steps and configuration."
+        },
+        {
+          "info": {
+            "name": "Update Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.squillo.io/v1/workflows/:workflowId",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique workflow identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a workflow definition including steps, triggers, and configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.squillo.io/v1/workflows/:workflowId",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique workflow identifier"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a workflow definition and all associated execution history."
+        },
+        {
+          "info": {
+            "name": "Activate Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/workflows/:workflowId/activate",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique workflow identifier"
+              }
+            ]
+          },
+          "docs": "Activates a workflow, enabling its triggers to fire and accepting manual runs."
+        },
+        {
+          "info": {
+            "name": "Deactivate Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/workflows/:workflowId/deactivate",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique workflow identifier"
+              }
+            ]
+          },
+          "docs": "Deactivates a workflow, preventing triggers from firing."
+        },
+        {
+          "info": {
+            "name": "Execute Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/workflows/:workflowId/execute",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique workflow identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually triggers a workflow execution with optional input data. Returns the execution ID for monitoring."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Executions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Executions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/executions",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "query",
+                "description": "Filter executions by workflow"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of workflow executions with status and timing information."
+        },
+        {
+          "info": {
+            "name": "Get Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/executions/:executionId",
+            "params": [
+              {
+                "name": "executionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique execution identifier"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific workflow execution including step results and logs."
+        },
+        {
+          "info": {
+            "name": "Cancel Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/executions/:executionId/cancel",
+            "params": [
+              {
+                "name": "executionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique execution identifier"
+              }
+            ]
+          },
+          "docs": "Cancels a running workflow execution."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/connectors",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter by connector category (CRM, ERP, Messaging, etc.)"
+              }
+            ]
+          },
+          "docs": "Returns all available connectors including built-in and custom connectors."
+        },
+        {
+          "info": {
+            "name": "List Connector Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/connectors/:connectorId/connections",
+            "params": [
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all configured connections for a specific connector."
+        },
+        {
+          "info": {
+            "name": "Create Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/connectors/:connectorId/connections",
+            "params": [
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new authenticated connection for a connector."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/variables"
+          },
+          "docs": "Returns all workflow variables and secrets configured in the account."
+        },
+        {
+          "info": {
+            "name": "Create Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/variables",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workflow variable or secret."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
