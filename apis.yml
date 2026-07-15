@@ -40,6 +40,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/squillo-agentic-access.yml
   - type: DomainSecurity
     url: security/squillo-domain-security.yml
   - type: Authentication
