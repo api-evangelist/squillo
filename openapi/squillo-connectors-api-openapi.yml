@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: Squillo Platform Connectors API
+  description: The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.
+  version: '1.0'
+  contact:
+    name: Squillo Support
+    url: https://squillo.io/
+  license:
+    name: Squillo Terms of Service
+    url: https://squillo.io/
+servers:
+- url: https://api.squillo.io/v1
+  description: Squillo Platform API
+security:
+- BearerAuth: []
+tags:
+- name: Connectors
+  description: Integration connector configuration
+paths:
+  /connectors:
+    get:
+      operationId: listConnectors
+      summary: List Connectors
+      description: Returns all available connectors including built-in and custom connectors.
+      tags:
+      - Connectors
+      parameters:
+      - name: category
+        in: query
+        schema:
+          type: string
+        description: Filter by connector category (CRM, ERP, Messaging, etc.)
+      responses:
+        '200':
+          description: Connector list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectorListResponse'
+  /connectors/{connectorId}/connections:
+    get:
+      operationId: listConnections
+      summary: List Connector Connections
+      description: Returns all configured connections for a specific connector.
+      tags:
+      - Connectors
+      parameters:
+      - name: connectorId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Connections list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionListResponse'
+    post:
+      operationId: createConnection
+      summary: Create Connection
+      description: Creates a new authenticated connection for a connector.
+      tags:
+      - Connectors
+      parameters:
+      - name: connectorId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionCreate'
+      responses:
+        '201':
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+components:
+  schemas:
+    ConnectionListResponse:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
+    ConnectionCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        credentials:
+          type: object
+          description: Connector-specific credential configuration
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+        connectorId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - error
+          - pending
+        createdAt:
+          type: string
+          format: date-time
+    Connector:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        logoUrl:
+          type: string
+        actions:
+          type: array
+          items:
+            type: string
+    ConnectorListResponse:
+      type: object
+      properties:
+        connectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connector'
+        total:
+          type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

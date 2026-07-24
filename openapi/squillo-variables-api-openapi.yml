@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: Squillo Platform Connectors Variables API
+  description: The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.
+  version: '1.0'
+  contact:
+    name: Squillo Support
+    url: https://squillo.io/
+  license:
+    name: Squillo Terms of Service
+    url: https://squillo.io/
+servers:
+- url: https://api.squillo.io/v1
+  description: Squillo Platform API
+security:
+- BearerAuth: []
+tags:
+- name: Variables
+  description: Workflow variable and secret management
+paths:
+  /variables:
+    get:
+      operationId: listVariables
+      summary: List Variables
+      description: Returns all workflow variables and secrets configured in the account.
+      tags:
+      - Variables
+      responses:
+        '200':
+          description: Variable list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariableListResponse'
+    post:
+      operationId: createVariable
+      summary: Create Variable
+      description: Creates a new workflow variable or secret.
+      tags:
+      - Variables
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariableCreate'
+      responses:
+        '201':
+          description: Variable created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+components:
+  schemas:
+    VariableCreate:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        type:
+          type: string
+          enum:
+          - plain
+          - secret
+          default: plain
+    Variable:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - plain
+          - secret
+        value:
+          type: string
+          description: Value (masked for secrets)
+        createdAt:
+          type: string
+          format: date-time
+    VariableListResponse:
+      type: object
+      properties:
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variable'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

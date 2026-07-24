@@ -1,0 +1,197 @@
+openapi: 3.1.0
+info:
+  title: Squillo Platform Connectors Executions API
+  description: The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.
+  version: '1.0'
+  contact:
+    name: Squillo Support
+    url: https://squillo.io/
+  license:
+    name: Squillo Terms of Service
+    url: https://squillo.io/
+servers:
+- url: https://api.squillo.io/v1
+  description: Squillo Platform API
+security:
+- BearerAuth: []
+tags:
+- name: Executions
+  description: Workflow execution monitoring and management
+paths:
+  /executions:
+    get:
+      operationId: listExecutions
+      summary: List Executions
+      description: Returns a paginated list of workflow executions with status and timing information.
+      tags:
+      - Executions
+      parameters:
+      - name: workflowId
+        in: query
+        description: Filter executions by workflow
+        schema:
+          type: string
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - running
+          - success
+          - failed
+          - cancelled
+      - name: startDate
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: Execution list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionListResponse'
+  /executions/{executionId}:
+    get:
+      operationId: getExecution
+      summary: Get Execution
+      description: Returns detailed information about a specific workflow execution including step results and logs.
+      tags:
+      - Executions
+      parameters:
+      - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Execution details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionDetail'
+  /executions/{executionId}/cancel:
+    post:
+      operationId: cancelExecution
+      summary: Cancel Execution
+      description: Cancels a running workflow execution.
+      tags:
+      - Executions
+      parameters:
+      - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Execution cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+components:
+  schemas:
+    StepExecution:
+      type: object
+      properties:
+        stepId:
+          type: string
+        stepName:
+          type: string
+        status:
+          type: string
+          enum:
+          - success
+          - failed
+          - skipped
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        inputData:
+          type: object
+        outputData:
+          type: object
+        errorMessage:
+          type: string
+          nullable: true
+    Execution:
+      type: object
+      properties:
+        id:
+          type: string
+        workflowId:
+          type: string
+        status:
+          type: string
+          enum:
+          - running
+          - success
+          - failed
+          - cancelled
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        triggeredBy:
+          type: string
+          enum:
+          - manual
+          - schedule
+          - webhook
+          - event
+    ExecutionListResponse:
+      type: object
+      properties:
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Execution'
+        total:
+          type: integer
+        page:
+          type: integer
+    ExecutionDetail:
+      allOf:
+      - $ref: '#/components/schemas/Execution'
+      - type: object
+        properties:
+          steps:
+            type: array
+            items:
+              $ref: '#/components/schemas/StepExecution'
+          inputData:
+            type: object
+          outputData:
+            type: object
+          errorMessage:
+            type: string
+            nullable: true
+  parameters:
+    ExecutionId:
+      name: executionId
+      in: path
+      required: true
+      description: Unique execution identifier
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
