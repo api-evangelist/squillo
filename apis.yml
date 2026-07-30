@@ -5,9 +5,22 @@ description: >-
   human processes in minutes, not months. It provides a low-code/no-code approach to connecting enterprise applications,
   automating workflows, and orchestrating complex IT processes without traditional development overhead.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/squillo.png
 tags:
   - Integration Platform
   - Automation
@@ -20,25 +33,54 @@ created: '2025-08-19'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: squillo:squillo-platform
-    name: Squillo Platform API
-    description: >-
-      The Squillo Platform API provides programmatic access to Squillo's integration and automation capabilities.
-      Enables developers to manage workflows, connectors, integrations, and automation tasks programmatically. The API
-      supports creating and managing integration flows, monitoring execution status, and configuring system connections.
-    humanURL: https://squillo.io/
-    baseURL: https://api.squillo.io/v1
-    tags:
-      - Integration Platform
-      - Workflow Automation
-      - IT Process Automation
-      - No-Code
-      - Connectors
-    properties:
-      - type: Documentation
-        url: https://squillo.io/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml
+- aid: squillo:squillo-connectors-api
+  name: Squillo Connectors API
+  description: Integration connector configuration
+  humanURL: https://squillo.io/
+  baseURL: https://api.squillo.io/v1
+  tags:
+  - Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/squillo-connectors-api-openapi.yml
+  - type: Documentation
+    url: https://squillo.io/
+- aid: squillo:squillo-executions-api
+  name: Squillo Executions API
+  description: Workflow execution monitoring and management
+  humanURL: https://squillo.io/
+  baseURL: https://api.squillo.io/v1
+  tags:
+  - Executions
+  properties:
+  - type: OpenAPI
+    url: openapi/squillo-executions-api-openapi.yml
+  - type: Documentation
+    url: https://squillo.io/
+- aid: squillo:squillo-variables-api
+  name: Squillo Variables API
+  description: Workflow variable and secret management
+  humanURL: https://squillo.io/
+  baseURL: https://api.squillo.io/v1
+  tags:
+  - Variables
+  properties:
+  - type: OpenAPI
+    url: openapi/squillo-variables-api-openapi.yml
+  - type: Documentation
+    url: https://squillo.io/
+- aid: squillo:squillo-workflows-api
+  name: Squillo Workflows API
+  description: Workflow definition and management
+  humanURL: https://squillo.io/
+  baseURL: https://api.squillo.io/v1
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/squillo-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://squillo.io/
 common:
   - type: AgenticAccess
     url: agentic-access/squillo-agentic-access.yml
