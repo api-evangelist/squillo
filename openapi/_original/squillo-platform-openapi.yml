@@ -1,0 +1,734 @@
+openapi: 3.1.0
+info:
+  title: Squillo Platform API
+  description: >-
+    The Squillo Platform API provides programmatic access to Squillo's
+    Software as a Utility (SaaU) integration and automation platform.
+    Enables management of workflows, connectors, integrations, triggers,
+    and execution monitoring for IT process automation.
+  version: "1.0"
+  contact:
+    name: Squillo Support
+    url: https://squillo.io/
+  license:
+    name: Squillo Terms of Service
+    url: https://squillo.io/
+servers:
+  - url: https://api.squillo.io/v1
+    description: Squillo Platform API
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Workflows
+    description: Workflow definition and management
+  - name: Connectors
+    description: Integration connector configuration
+  - name: Executions
+    description: Workflow execution monitoring and management
+  - name: Triggers
+    description: Workflow trigger configuration
+  - name: Variables
+    description: Workflow variable and secret management
+
+paths:
+  /workflows:
+    get:
+      operationId: listWorkflows
+      summary: List Workflows
+      description: >-
+        Returns a list of all workflow definitions in the account, including
+        their status, creation date, and trigger configuration.
+      tags:
+        - Workflows
+      parameters:
+        - name: status
+          in: query
+          description: Filter by workflow status
+          schema:
+            type: string
+            enum: [active, inactive, draft]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 200
+      responses:
+        '200':
+          description: List of workflows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: createWorkflow
+      summary: Create Workflow
+      description: >-
+        Creates a new workflow definition with specified steps, connectors,
+        and trigger configuration.
+      tags:
+        - Workflows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowCreate'
+      responses:
+        '201':
+          description: Workflow created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /workflows/{workflowId}:
+    get:
+      operationId: getWorkflow
+      summary: Get Workflow
+      description: Returns the full definition for a specific workflow including all steps and configuration.
+      tags:
+        - Workflows
+      parameters:
+        - $ref: '#/components/parameters/WorkflowId'
+      responses:
+        '200':
+          description: Workflow details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      operationId: updateWorkflow
+      summary: Update Workflow
+      description: Updates a workflow definition including steps, triggers, and configuration.
+      tags:
+        - Workflows
+      parameters:
+        - $ref: '#/components/parameters/WorkflowId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowUpdate'
+      responses:
+        '200':
+          description: Workflow updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+
+    delete:
+      operationId: deleteWorkflow
+      summary: Delete Workflow
+      description: Permanently deletes a workflow definition and all associated execution history.
+      tags:
+        - Workflows
+      parameters:
+        - $ref: '#/components/parameters/WorkflowId'
+      responses:
+        '204':
+          description: Workflow deleted
+
+  /workflows/{workflowId}/activate:
+    post:
+      operationId: activateWorkflow
+      summary: Activate Workflow
+      description: Activates a workflow, enabling its triggers to fire and accepting manual runs.
+      tags:
+        - Workflows
+      parameters:
+        - $ref: '#/components/parameters/WorkflowId'
+      responses:
+        '200':
+          description: Workflow activated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+
+  /workflows/{workflowId}/deactivate:
+    post:
+      operationId: deactivateWorkflow
+      summary: Deactivate Workflow
+      description: Deactivates a workflow, preventing triggers from firing.
+      tags:
+        - Workflows
+      parameters:
+        - $ref: '#/components/parameters/WorkflowId'
+      responses:
+        '200':
+          description: Workflow deactivated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+
+  /workflows/{workflowId}/execute:
+    post:
+      operationId: executeWorkflow
+      summary: Execute Workflow
+      description: >-
+        Manually triggers a workflow execution with optional input data.
+        Returns the execution ID for monitoring.
+      tags:
+        - Workflows
+      parameters:
+        - $ref: '#/components/parameters/WorkflowId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputData:
+                  type: object
+                  description: Optional input payload for the workflow execution
+      responses:
+        '202':
+          description: Execution started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+
+  /executions:
+    get:
+      operationId: listExecutions
+      summary: List Executions
+      description: Returns a paginated list of workflow executions with status and timing information.
+      tags:
+        - Executions
+      parameters:
+        - name: workflowId
+          in: query
+          description: Filter executions by workflow
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [running, success, failed, cancelled]
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Execution list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionListResponse'
+
+  /executions/{executionId}:
+    get:
+      operationId: getExecution
+      summary: Get Execution
+      description: Returns detailed information about a specific workflow execution including step results and logs.
+      tags:
+        - Executions
+      parameters:
+        - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Execution details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionDetail'
+
+  /executions/{executionId}/cancel:
+    post:
+      operationId: cancelExecution
+      summary: Cancel Execution
+      description: Cancels a running workflow execution.
+      tags:
+        - Executions
+      parameters:
+        - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Execution cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution'
+
+  /connectors:
+    get:
+      operationId: listConnectors
+      summary: List Connectors
+      description: Returns all available connectors including built-in and custom connectors.
+      tags:
+        - Connectors
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+          description: Filter by connector category (CRM, ERP, Messaging, etc.)
+      responses:
+        '200':
+          description: Connector list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectorListResponse'
+
+  /connectors/{connectorId}/connections:
+    get:
+      operationId: listConnections
+      summary: List Connector Connections
+      description: Returns all configured connections for a specific connector.
+      tags:
+        - Connectors
+      parameters:
+        - name: connectorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connections list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionListResponse'
+
+    post:
+      operationId: createConnection
+      summary: Create Connection
+      description: Creates a new authenticated connection for a connector.
+      tags:
+        - Connectors
+      parameters:
+        - name: connectorId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionCreate'
+      responses:
+        '201':
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+
+  /variables:
+    get:
+      operationId: listVariables
+      summary: List Variables
+      description: Returns all workflow variables and secrets configured in the account.
+      tags:
+        - Variables
+      responses:
+        '200':
+          description: Variable list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariableListResponse'
+
+    post:
+      operationId: createVariable
+      summary: Create Variable
+      description: Creates a new workflow variable or secret.
+      tags:
+        - Variables
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariableCreate'
+      responses:
+        '201':
+          description: Variable created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    WorkflowId:
+      name: workflowId
+      in: path
+      required: true
+      description: Unique workflow identifier
+      schema:
+        type: string
+    ExecutionId:
+      name: executionId
+      in: path
+      required: true
+      description: Unique execution identifier
+      schema:
+        type: string
+
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique workflow identifier
+        name:
+          type: string
+          description: Human-readable workflow name
+        description:
+          type: string
+        status:
+          type: string
+          enum: [active, inactive, draft]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStep'
+        tags:
+          type: array
+          items:
+            type: string
+
+    WorkflowCreate:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStep'
+        tags:
+          type: array
+          items:
+            type: string
+
+    WorkflowUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStep'
+
+    WorkflowListResponse:
+      type: object
+      properties:
+        workflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    Trigger:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [webhook, schedule, manual, event]
+        config:
+          type: object
+          description: Trigger-specific configuration
+
+    WorkflowStep:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [action, condition, loop, delay, transform]
+        connectorId:
+          type: string
+        action:
+          type: string
+        inputMapping:
+          type: object
+        outputMapping:
+          type: object
+        errorHandling:
+          type: object
+
+    Execution:
+      type: object
+      properties:
+        id:
+          type: string
+        workflowId:
+          type: string
+        status:
+          type: string
+          enum: [running, success, failed, cancelled]
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        triggeredBy:
+          type: string
+          enum: [manual, schedule, webhook, event]
+
+    ExecutionDetail:
+      allOf:
+        - $ref: '#/components/schemas/Execution'
+        - type: object
+          properties:
+            steps:
+              type: array
+              items:
+                $ref: '#/components/schemas/StepExecution'
+            inputData:
+              type: object
+            outputData:
+              type: object
+            errorMessage:
+              type: string
+              nullable: true
+
+    StepExecution:
+      type: object
+      properties:
+        stepId:
+          type: string
+        stepName:
+          type: string
+        status:
+          type: string
+          enum: [success, failed, skipped]
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        inputData:
+          type: object
+        outputData:
+          type: object
+        errorMessage:
+          type: string
+          nullable: true
+
+    ExecutionListResponse:
+      type: object
+      properties:
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Execution'
+        total:
+          type: integer
+        page:
+          type: integer
+
+    Connector:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        logoUrl:
+          type: string
+        actions:
+          type: array
+          items:
+            type: string
+
+    ConnectorListResponse:
+      type: object
+      properties:
+        connectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connector'
+        total:
+          type: integer
+
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+        connectorId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum: [active, error, pending]
+        createdAt:
+          type: string
+          format: date-time
+
+    ConnectionCreate:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        credentials:
+          type: object
+          description: Connector-specific credential configuration
+
+    ConnectionListResponse:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
+
+    Variable:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [plain, secret]
+        value:
+          type: string
+          description: Value (masked for secrets)
+        createdAt:
+          type: string
+          format: date-time
+
+    VariableCreate:
+      type: object
+      required: [name, value]
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        type:
+          type: string
+          enum: [plain, secret]
+          default: plain
+
+    VariableListResponse:
+      type: object
+      properties:
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variable'
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string

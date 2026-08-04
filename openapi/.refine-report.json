@@ -1,0 +1,20 @@
+{
+  "provider": "squillo",
+  "sources": [
+    "squillo-connectors-api-openapi.yml",
+    "squillo-executions-api-openapi.yml",
+    "squillo-variables-api-openapi.yml",
+    "squillo-workflows-api-openapi.yml"
+  ],
+  "outputs": [
+    "squillo-connectors-api-openapi.yml",
+    "squillo-executions-api-openapi.yml",
+    "squillo-variables-api-openapi.yml",
+    "squillo-workflows-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
