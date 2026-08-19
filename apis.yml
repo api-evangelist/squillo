@@ -31,7 +31,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/apis.yml
 created: '2025-08-19'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: squillo:squillo-connectors-api
   name: Squillo Connectors API
