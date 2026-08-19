@@ -1,0 +1,218 @@
+{
+  "item": [
+    {
+      "id": "f5e4d3b9-75f4-4870-8821-b5309e1fd9fe",
+      "name": "Variables",
+      "description": {
+        "content": "Workflow variable and secret management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28a624f9-134d-4d77-9722-7b6b1cf6f78e",
+          "name": "List Variables",
+          "request": {
+            "name": "List Variables",
+            "description": {
+              "content": "Returns all workflow variables and secrets configured in the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9893f817-9a79-4117-95a2-a1fcea402649",
+              "name": "Variable list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"variables\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"plain\",\n      \"value\": \"string\",\n      \"createdAt\": \"1984-12-01T01:43:10.025Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"plain\",\n      \"value\": \"string\",\n      \"createdAt\": \"1963-02-07T16:41:27.397Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15c43f24-c775-49fe-94be-1a13fcc5d041",
+          "name": "Create Variable",
+          "request": {
+            "name": "Create Variable",
+            "description": {
+              "content": "Creates a new workflow variable or secret.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\",\n  \"type\": \"plain\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23e01457-b18c-4326-8537-d81c4625eb14",
+              "name": "Variable created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\",\n  \"type\": \"plain\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"plain\",\n  \"value\": \"string\",\n  \"createdAt\": \"1968-11-06T02:19:43.030Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.squillo.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "48a4fbdd-1120-4ae5-8dfb-c6e85b9c9d5d",
+    "name": "Squillo Platform Connectors Variables API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.\n\nContact Support:\n Name: Squillo Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squillo Platform Connectors Variables API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/variables"
+          },
+          "docs": "Returns all workflow variables and secrets configured in the account."
+        },
+        {
+          "info": {
+            "name": "Create Variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/variables",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workflow variable or secret."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

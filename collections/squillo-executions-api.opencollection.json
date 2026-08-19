@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squillo Platform Connectors Executions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Executions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Executions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/executions",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "query",
+                "description": "Filter executions by workflow"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of workflow executions with status and timing information."
+        },
+        {
+          "info": {
+            "name": "Get Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/executions/:executionId",
+            "params": [
+              {
+                "name": "executionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique execution identifier"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific workflow execution including step results and logs."
+        },
+        {
+          "info": {
+            "name": "Cancel Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/executions/:executionId/cancel",
+            "params": [
+              {
+                "name": "executionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique execution identifier"
+              }
+            ]
+          },
+          "docs": "Cancels a running workflow execution."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

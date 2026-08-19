@@ -1,0 +1,370 @@
+{
+  "item": [
+    {
+      "id": "361b2d43-1872-4e49-b231-906119c13044",
+      "name": "Executions",
+      "description": {
+        "content": "Workflow execution monitoring and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fc8bd53-85e7-4138-b330-d2f1bca04126",
+          "name": "List Executions",
+          "request": {
+            "name": "List Executions",
+            "description": {
+              "content": "Returns a paginated list of workflow executions with status and timing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workflowId",
+                  "value": "<string>",
+                  "description": "Filter executions by workflow"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c46ec597-15d5-4596-8e2f-119c5bd6d98f",
+              "name": "Execution list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflowId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"executions\": [\n    {\n      \"id\": \"string\",\n      \"workflowId\": \"string\",\n      \"status\": \"failed\",\n      \"startedAt\": \"1982-11-01T18:40:53.582Z\",\n      \"completedAt\": \"1974-11-30T20:11:56.833Z\",\n      \"triggeredBy\": \"webhook\"\n    },\n    {\n      \"id\": \"string\",\n      \"workflowId\": \"string\",\n      \"status\": \"failed\",\n      \"startedAt\": \"1996-03-05T14:27:13.759Z\",\n      \"completedAt\": \"1954-09-10T03:28:46.003Z\",\n      \"triggeredBy\": \"event\"\n    }\n  ],\n  \"total\": 1733,\n  \"page\": 5204\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1faaa31-fa0f-4a3e-9fe2-49cef6a59622",
+          "name": "Get Execution",
+          "request": {
+            "name": "Get Execution",
+            "description": {
+              "content": "Returns detailed information about a specific workflow execution including step results and logs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "executions",
+                ":executionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) Unique execution identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34373e8a-83d9-4e9d-8cf5-8545ebd8a6f8",
+              "name": "Execution details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) Unique execution identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"workflowId\": \"string\",\n  \"status\": \"success\",\n  \"startedAt\": \"1959-05-09T16:11:30.057Z\",\n  \"completedAt\": \"1986-02-22T17:06:24.440Z\",\n  \"triggeredBy\": \"manual\",\n  \"steps\": [\n    {\n      \"stepId\": \"string\",\n      \"stepName\": \"string\",\n      \"status\": \"failed\",\n      \"startedAt\": \"1951-02-25T21:44:43.291Z\",\n      \"completedAt\": \"2002-09-26T13:09:43.049Z\",\n      \"inputData\": {},\n      \"outputData\": {},\n      \"errorMessage\": \"string\"\n    },\n    {\n      \"stepId\": \"string\",\n      \"stepName\": \"string\",\n      \"status\": \"skipped\",\n      \"startedAt\": \"2012-05-07T08:27:58.096Z\",\n      \"completedAt\": \"1975-10-05T16:01:24.352Z\",\n      \"inputData\": {},\n      \"outputData\": {},\n      \"errorMessage\": \"string\"\n    }\n  ],\n  \"inputData\": {},\n  \"outputData\": {},\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7caedf07-b1ed-446a-aba8-01fe8b0f452b",
+          "name": "Cancel Execution",
+          "request": {
+            "name": "Cancel Execution",
+            "description": {
+              "content": "Cancels a running workflow execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "executions",
+                ":executionId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionId",
+                  "description": "(Required) Unique execution identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fcd7a4c6-bb6d-4309-88b0-0e1a64660b44",
+              "name": "Execution cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "executions",
+                    ":executionId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionId",
+                      "description": "(Required) Unique execution identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"workflowId\": \"string\",\n  \"status\": \"success\",\n  \"startedAt\": \"1952-03-17T00:17:14.514Z\",\n  \"completedAt\": \"1963-10-28T15:12:43.803Z\",\n  \"triggeredBy\": \"webhook\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.squillo.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "23164d93-1905-425a-a095-dc9c5f23ea34",
+    "name": "Squillo Platform Connectors Executions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.\n\nContact Support:\n Name: Squillo Support",
+      "type": "text/plain"
+    }
+  }
+}

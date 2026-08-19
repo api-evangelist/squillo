@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squillo Platform Connectors API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/connectors",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter by connector category (CRM, ERP, Messaging, etc.)"
+              }
+            ]
+          },
+          "docs": "Returns all available connectors including built-in and custom connectors."
+        },
+        {
+          "info": {
+            "name": "List Connector Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squillo.io/v1/connectors/:connectorId/connections",
+            "params": [
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all configured connections for a specific connector."
+        },
+        {
+          "info": {
+            "name": "Create Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squillo.io/v1/connectors/:connectorId/connections",
+            "params": [
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new authenticated connection for a connector."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
