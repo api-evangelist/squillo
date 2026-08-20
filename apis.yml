@@ -24,6 +24,13 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/squillo.pn
 tags:
   - Integration Platform
   - Automation
+  - Workflows
+  - No-Code
+  - IT Process Automation
+  - Software As A Utility
+tags_raw:
+  - Integration Platform
+  - Automation
   - Workflow
   - No-Code
   - IT Process Automation
@@ -51,6 +58,8 @@ apis:
   humanURL: https://squillo.io/
   baseURL: https://api.squillo.io/v1
   tags:
+  - Execution
+  tags_raw:
   - Executions
   properties:
   - type: OpenAPI
