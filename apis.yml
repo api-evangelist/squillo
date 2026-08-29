@@ -5,6 +5,17 @@ description: >-
   human processes in minutes, not months. It provides a low-code/no-code approach to connecting enterprise applications,
   automating workflows, and orchestrating complex IT processes without traditional development overhead.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
