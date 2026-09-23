@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Squillo Platform Connectors API
   description: The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.
@@ -85,23 +85,6 @@ paths:
                 $ref: '#/components/schemas/Connection'
 components:
   schemas:
-    ConnectionListResponse:
-      type: object
-      properties:
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connection'
-    ConnectionCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        credentials:
-          type: object
-          description: Connector-specific credential configuration
     Connection:
       type: object
       properties:
@@ -137,6 +120,23 @@ components:
           type: array
           items:
             type: string
+    ConnectionCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        credentials:
+          type: object
+          description: Connector-specific credential configuration
+    ConnectionListResponse:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
     ConnectorListResponse:
       type: object
       properties:

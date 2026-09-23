@@ -1,10 +1,7 @@
 {
   "provider": "squillo",
   "sources": [
-    "squillo-connectors-api-openapi.yml",
-    "squillo-executions-api-openapi.yml",
-    "squillo-variables-api-openapi.yml",
-    "squillo-workflows-api-openapi.yml"
+    "_original/squillo-platform-openapi.yml"
   ],
   "outputs": [
     "squillo-connectors-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "squillo-platform-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "squillo-connectors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squillo-executions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squillo-variables-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squillo-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

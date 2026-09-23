@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Squillo Platform Connectors Executions API
+  title: Squillo Platform Executions API
   description: The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.
   version: '1.0'
   contact:
@@ -101,32 +101,6 @@ paths:
                 $ref: '#/components/schemas/Execution'
 components:
   schemas:
-    StepExecution:
-      type: object
-      properties:
-        stepId:
-          type: string
-        stepName:
-          type: string
-        status:
-          type: string
-          enum:
-          - success
-          - failed
-          - skipped
-        startedAt:
-          type: string
-          format: date-time
-        completedAt:
-          type: string
-          format: date-time
-        inputData:
-          type: object
-        outputData:
-          type: object
-        errorMessage:
-          type: string
-          nullable: true
     Execution:
       type: object
       properties:
@@ -155,6 +129,32 @@ components:
           - schedule
           - webhook
           - event
+    StepExecution:
+      type: object
+      properties:
+        stepId:
+          type: string
+        stepName:
+          type: string
+        status:
+          type: string
+          enum:
+          - success
+          - failed
+          - skipped
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        inputData:
+          type: object
+        outputData:
+          type: object
+        errorMessage:
+          type: string
+          nullable: true
     ExecutionListResponse:
       type: object
       properties:

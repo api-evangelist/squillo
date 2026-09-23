@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Squillo Platform Connectors Variables API
+  title: Squillo Platform Variables API
   description: The Squillo Platform API provides programmatic access to Squillo's Software as a Utility (SaaU) integration and automation platform. Enables management of workflows, connectors, integrations, triggers, and execution monitoring for IT process automation.
   version: '1.0'
   contact:
@@ -53,22 +53,6 @@ paths:
                 $ref: '#/components/schemas/Variable'
 components:
   schemas:
-    VariableCreate:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        type:
-          type: string
-          enum:
-          - plain
-          - secret
-          default: plain
     Variable:
       type: object
       properties:
@@ -94,6 +78,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Variable'
+    VariableCreate:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        type:
+          type: string
+          enum:
+          - plain
+          - secret
+          default: plain
   securitySchemes:
     BearerAuth:
       type: http
