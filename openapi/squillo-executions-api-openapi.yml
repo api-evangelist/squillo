@@ -101,6 +101,43 @@ paths:
                 $ref: '#/components/schemas/Execution'
 components:
   schemas:
+    ExecutionListResponse:
+      type: object
+      properties:
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Execution'
+        total:
+          type: integer
+        page:
+          type: integer
+    StepExecution:
+      type: object
+      properties:
+        stepId:
+          type: string
+        stepName:
+          type: string
+        status:
+          type: string
+          enum:
+          - success
+          - failed
+          - skipped
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        inputData:
+          type: object
+        outputData:
+          type: object
+        errorMessage:
+          type: string
+          nullable: true
     Execution:
       type: object
       properties:
@@ -129,43 +166,6 @@ components:
           - schedule
           - webhook
           - event
-    StepExecution:
-      type: object
-      properties:
-        stepId:
-          type: string
-        stepName:
-          type: string
-        status:
-          type: string
-          enum:
-          - success
-          - failed
-          - skipped
-        startedAt:
-          type: string
-          format: date-time
-        completedAt:
-          type: string
-          format: date-time
-        inputData:
-          type: object
-        outputData:
-          type: object
-        errorMessage:
-          type: string
-          nullable: true
-    ExecutionListResponse:
-      type: object
-      properties:
-        executions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Execution'
-        total:
-          type: integer
-        page:
-          type: integer
     ExecutionDetail:
       allOf:
       - $ref: '#/components/schemas/Execution'

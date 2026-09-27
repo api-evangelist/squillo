@@ -85,6 +85,23 @@ paths:
                 $ref: '#/components/schemas/Connection'
 components:
   schemas:
+    ConnectionCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        credentials:
+          type: object
+          description: Connector-specific credential configuration
+    ConnectionListResponse:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
     Connection:
       type: object
       properties:
@@ -120,23 +137,6 @@ components:
           type: array
           items:
             type: string
-    ConnectionCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        credentials:
-          type: object
-          description: Connector-specific credential configuration
-    ConnectionListResponse:
-      type: object
-      properties:
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connection'
     ConnectorListResponse:
       type: object
       properties:
