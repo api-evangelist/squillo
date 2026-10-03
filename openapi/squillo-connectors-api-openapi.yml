@@ -95,13 +95,15 @@ components:
         credentials:
           type: object
           description: Connector-specific credential configuration
-    ConnectionListResponse:
+    ConnectorListResponse:
       type: object
       properties:
-        connections:
+        connectors:
           type: array
           items:
-            $ref: '#/components/schemas/Connection'
+            $ref: '#/components/schemas/Connector'
+        total:
+          type: integer
     Connection:
       type: object
       properties:
@@ -120,6 +122,13 @@ components:
         createdAt:
           type: string
           format: date-time
+    ConnectionListResponse:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
     Connector:
       type: object
       properties:
@@ -137,15 +146,6 @@ components:
           type: array
           items:
             type: string
-    ConnectorListResponse:
-      type: object
-      properties:
-        connectors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connector'
-        total:
-          type: integer
   securitySchemes:
     BearerAuth:
       type: http

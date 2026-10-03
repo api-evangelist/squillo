@@ -101,6 +101,34 @@ paths:
                 $ref: '#/components/schemas/Execution'
 components:
   schemas:
+    Execution:
+      type: object
+      properties:
+        id:
+          type: string
+        workflowId:
+          type: string
+        status:
+          type: string
+          enum:
+          - running
+          - success
+          - failed
+          - cancelled
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        triggeredBy:
+          type: string
+          enum:
+          - manual
+          - schedule
+          - webhook
+          - event
     ExecutionListResponse:
       type: object
       properties:
@@ -138,34 +166,6 @@ components:
         errorMessage:
           type: string
           nullable: true
-    Execution:
-      type: object
-      properties:
-        id:
-          type: string
-        workflowId:
-          type: string
-        status:
-          type: string
-          enum:
-          - running
-          - success
-          - failed
-          - cancelled
-        startedAt:
-          type: string
-          format: date-time
-        completedAt:
-          type: string
-          format: date-time
-          nullable: true
-        triggeredBy:
-          type: string
-          enum:
-          - manual
-          - schedule
-          - webhook
-          - event
     ExecutionDetail:
       allOf:
       - $ref: '#/components/schemas/Execution'
