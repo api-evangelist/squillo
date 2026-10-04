@@ -104,6 +104,23 @@ components:
             $ref: '#/components/schemas/Connector'
         total:
           type: integer
+    Connector:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        logoUrl:
+          type: string
+        actions:
+          type: array
+          items:
+            type: string
     Connection:
       type: object
       properties:
@@ -129,23 +146,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Connection'
-    Connector:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        category:
-          type: string
-        logoUrl:
-          type: string
-        actions:
-          type: array
-          items:
-            type: string
   securitySchemes:
     BearerAuth:
       type: http

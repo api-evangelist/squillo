@@ -186,20 +186,70 @@ paths:
               schema:
                 $ref: '#/components/schemas/Execution'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    Trigger:
+    WorkflowStep:
       type: object
       properties:
+        id:
+          type: string
+        name:
+          type: string
         type:
           type: string
           enum:
-          - webhook
-          - schedule
-          - manual
-          - event
-        config:
+          - action
+          - condition
+          - loop
+          - delay
+          - transform
+        connectorId:
+          type: string
+        action:
+          type: string
+        inputMapping:
           type: object
-          description: Trigger-specific configuration
+        outputMapping:
+          type: object
+        errorHandling:
+          type: object
+    WorkflowCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStep'
+        tags:
+          type: array
+          items:
+            type: string
     Execution:
       type: object
       properties:
@@ -241,38 +291,6 @@ components:
           type: integer
         limit:
           type: integer
-    WorkflowUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        trigger:
-          $ref: '#/components/schemas/Trigger'
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowStep'
-    WorkflowCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        trigger:
-          $ref: '#/components/schemas/Trigger'
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowStep'
-        tags:
-          type: array
-          items:
-            type: string
     Workflow:
       type: object
       properties:
@@ -306,6 +324,19 @@ components:
           type: array
           items:
             type: string
+    WorkflowUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStep'
     ErrorResponse:
       type: object
       properties:
@@ -317,50 +348,19 @@ components:
           type: array
           items:
             type: string
-    WorkflowStep:
+    Trigger:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
         type:
           type: string
           enum:
-          - action
-          - condition
-          - loop
-          - delay
-          - transform
-        connectorId:
-          type: string
-        action:
-          type: string
-        inputMapping:
+          - webhook
+          - schedule
+          - manual
+          - event
+        config:
           type: object
-        outputMapping:
-          type: object
-        errorHandling:
-          type: object
-  responses:
-    BadRequest:
-      description: Invalid request data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+          description: Trigger-specific configuration
   parameters:
     WorkflowId:
       name: workflowId
