@@ -103,6 +103,12 @@ apis:
   - type: Documentation
     url: https://squillo.io/
 common:
+  - type: Plans
+    url: plans/squillo-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/squillo-rate-limits.yml
+  - type: FinOps
+    url: finops/squillo-finops.yml
   - type: AgenticAccess
     url: agentic-access/squillo-agentic-access.yml
   - type: DomainSecurity
