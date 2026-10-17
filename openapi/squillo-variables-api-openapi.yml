@@ -53,6 +53,13 @@ paths:
                 $ref: '#/components/schemas/Variable'
 components:
   schemas:
+    VariableListResponse:
+      type: object
+      properties:
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variable'
     Variable:
       type: object
       properties:
@@ -87,13 +94,6 @@ components:
           - plain
           - secret
           default: plain
-    VariableListResponse:
-      type: object
-      properties:
-        variables:
-          type: array
-          items:
-            $ref: '#/components/schemas/Variable'
   securitySchemes:
     BearerAuth:
       type: http

@@ -101,22 +101,6 @@ paths:
                 $ref: '#/components/schemas/Execution'
 components:
   schemas:
-    ExecutionDetail:
-      allOf:
-      - $ref: '#/components/schemas/Execution'
-      - type: object
-        properties:
-          steps:
-            type: array
-            items:
-              $ref: '#/components/schemas/StepExecution'
-          inputData:
-            type: object
-          outputData:
-            type: object
-          errorMessage:
-            type: string
-            nullable: true
     Execution:
       type: object
       properties:
@@ -171,6 +155,22 @@ components:
         errorMessage:
           type: string
           nullable: true
+    ExecutionDetail:
+      allOf:
+      - $ref: '#/components/schemas/Execution'
+      - type: object
+        properties:
+          steps:
+            type: array
+            items:
+              $ref: '#/components/schemas/StepExecution'
+          inputData:
+            type: object
+          outputData:
+            type: object
+          errorMessage:
+            type: string
+            nullable: true
     ExecutionListResponse:
       type: object
       properties:

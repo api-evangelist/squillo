@@ -193,14 +193,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
@@ -250,6 +250,17 @@ components:
           type: array
           items:
             type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
     Execution:
       type: object
       properties:
@@ -278,6 +289,19 @@ components:
           - schedule
           - webhook
           - event
+    Trigger:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - webhook
+          - schedule
+          - manual
+          - event
+        config:
+          type: object
+          description: Trigger-specific configuration
     WorkflowListResponse:
       type: object
       properties:
@@ -291,6 +315,19 @@ components:
           type: integer
         limit:
           type: integer
+    WorkflowUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStep'
     Workflow:
       type: object
       properties:
@@ -324,43 +361,6 @@ components:
           type: array
           items:
             type: string
-    WorkflowUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        trigger:
-          $ref: '#/components/schemas/Trigger'
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowStep'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-    Trigger:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - webhook
-          - schedule
-          - manual
-          - event
-        config:
-          type: object
-          description: Trigger-specific configuration
   parameters:
     WorkflowId:
       name: workflowId

@@ -85,6 +85,48 @@ paths:
                 $ref: '#/components/schemas/Connection'
 components:
   schemas:
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+        connectorId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - error
+          - pending
+        createdAt:
+          type: string
+          format: date-time
+    Connector:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        logoUrl:
+          type: string
+        actions:
+          type: array
+          items:
+            type: string
+    ConnectionListResponse:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
     ConnectionCreate:
       type: object
       required:
@@ -104,48 +146,6 @@ components:
             $ref: '#/components/schemas/Connector'
         total:
           type: integer
-    Connector:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        category:
-          type: string
-        logoUrl:
-          type: string
-        actions:
-          type: array
-          items:
-            type: string
-    Connection:
-      type: object
-      properties:
-        id:
-          type: string
-        connectorId:
-          type: string
-        name:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - error
-          - pending
-        createdAt:
-          type: string
-          format: date-time
-    ConnectionListResponse:
-      type: object
-      properties:
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Connection'
   securitySchemes:
     BearerAuth:
       type: http
