@@ -1,4 +1,4 @@
-# Squillo (squillo)
+# Squillo
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,67 +66,160 @@
 
 Squillo is a Software as a Utility (SaaU) platform that enables integration and automation of entire IT systems and human processes in minutes, not months. It provides a low-code/no-code approach to connecting enterprise applications, automating workflows, and orchestrating complex IT processes without traditional development overhead.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/apis.yml)
+**Areas:** Integration Platform · Automation · Workflows · No-Code · IT Process Automation · Software As A Utility
 
-## Scope
+## Squillo on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Squillo is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/squillo/](https://apis.io/providers/squillo/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- Integration Platform
-- Automation
-- Workflow
-- No-Code
-- IT Process Automation
-- Software As A Utility
+- [Squillo Connectors API](https://apis.io/apis/squillo/squillo-connectors-api/) — Integration connector configuration
+- [Squillo Executions API](https://apis.io/apis/squillo/squillo-executions-api/) — Workflow execution monitoring and management
+- [Squillo Variables API](https://apis.io/apis/squillo/squillo-variables-api/) — Workflow variable and secret management
+- [Squillo Workflows API](https://apis.io/apis/squillo/squillo-workflows-api/) — Workflow definition and management
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-08-19
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Squillo Platform API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Squillo Platform API provides programmatic access to Squillo's integration and automation capabilities. Enables developers to manage workflows, connectors, integrations, and automation tasks programmatically. The API supports creating and managing integration flows, monitoring execution status, and configuring system connections.
+- [Squillo Agentic Access](https://apis.io/agentic-access/squillo/squillo-agentic-access/)
 
-- **Human URL:** [https://squillo.io/](https://squillo.io/)
-- **Base URL:** `https://api.squillo.io/v1`
+#### JSON Schema (1)
 
-#### Tags
+The data models the API reads and writes.
 
-- Integration Platform
-- Workflow Automation
-- IT Process Automation
-- No-Code
-- Connectors
+- [Squillo Workflow](https://apis.io/schemas/squillo/squillo-workflow/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://squillo.io/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squillo-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squillo-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-## Common Properties
+- [Squillo Workflow Structure](https://apis.io/json-structure/squillo/squillo-workflow-structure/)
 
-- [GitHub Organization](https://github.com/squillo)
-- [LinkedIn](https://www.linkedin.com/company/squillo)
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Squillo Context](https://apis.io/jsonld/squillo/squillo-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Squillo Platform Vocabulary](https://apis.io/vocabularies/squillo/squillo-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Squillo Execute Workflow Example](https://apis.io/examples/squillo/squillo-execute-workflow-example/)
+- [Squillo List Workflows Example](https://apis.io/examples/squillo/squillo-list-workflows-example/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Squillo Platform Connectors API](https://apis.io/collections/squillo/open-squillo-connectors-api/)
+- [Squillo Platform Connectors Executions API](https://apis.io/collections/squillo/open-squillo-executions-api/)
+- [Squillo Platform API](https://apis.io/collections/squillo/open-squillo-platform/)
+- [Squillo Platform Connectors Variables API](https://apis.io/collections/squillo/open-squillo-variables-api/)
+- [Squillo Platform Connectors Workflows API](https://apis.io/collections/squillo/open-squillo-workflows-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Squillo — jsonschema rules](https://apis.io/rules/squillo/squillo-jsonschema-spectral-rules/)
+- [Squillo API Rules](https://apis.io/rules/squillo/squillo-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Squillo Authentication](https://apis.io/security/squillo/squillo-authentication/)
+- [Squillo Domain Security](https://apis.io/security/squillo/squillo-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Squillo Plans Pricing](https://apis.io/plans/squillo/squillo-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Squillo Rate Limits](https://apis.io/rate-limits/squillo/squillo-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Squillo Finops](https://apis.io/finops/squillo/squillo-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://squillo.io/)
 - [Documentation](https://squillo.io/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/openapi/squillo-platform-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-schema/squillo-workflow-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-structure/squillo-workflow-structure.json)
-- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/json-ld/squillo-context.jsonld)
-- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/rules/squillo-rules.yml)
-- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/squillo/refs/heads/main/vocabulary/squillo-vocabulary.yml)
-- [Integrations](https://squillo.io/partners)
+- [Blog](https://squillo.io/rss)
+- [GitHub](https://github.com/squillo)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 30.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.7 |
+| Contract governance | 27.3 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 19.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.9** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/squillo/](https://apis.io/providers/squillo/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Squillo: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/squillo/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
